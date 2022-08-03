@@ -1,14 +1,11 @@
 package HW7.entity;
 
-import java.util.Objects;
-
 public abstract class Club {
     private String name;
     private int score;
     private int play;
     private int win;
     private int lose;
-    private int winScore;
 
     public String getName() {
         return name;
@@ -25,15 +22,19 @@ public abstract class Club {
     public void setScore(int score) {
         this.score = score;
     }
+    public void addScore(int score) {
+        this.score+=score;
+    }
 
     public int getPlay() {
         return play;
     }
 
-    public void setPlay(int play) {
+    public void addPlay(int play) {
         this.play = play;
     }
-    public void setPlay() {
+
+    public void addPlay() {
         play++;
     }
 
@@ -41,10 +42,11 @@ public abstract class Club {
         return win;
     }
 
-    public void setWin(int win) {
+    public void addWin(int win) {
         this.win = win;
     }
-    public void setWin() {
+
+    public void addWin() {
         win++;
     }
 
@@ -52,35 +54,18 @@ public abstract class Club {
         return lose;
     }
 
-    public void setLose(int lose) {
+    public void addLose(int lose) {
         this.lose = lose;
     }
-    public void setLose() {
+
+    public void addLose() {
         lose++;
     }
 
-    public int getWinScore() {
-        return winScore;
-    }
-
-    public void setWinScore(int winScore) {
-        this.winScore = winScore;
-    }
     public abstract void setResult(Result resultMatch);
 
     @Override
     public abstract String toString();
-
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Club club = (Club) o;
-        return score == club.score && play == club.play && win == club.win && lose == club.lose && Objects.equals(name, club.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, score, play, win, lose);
-    }
+    public abstract boolean equals(Object object);
 }

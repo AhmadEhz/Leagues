@@ -15,27 +15,27 @@ public class FootballClub extends Club {
         return draw;
     }
 
-    public void setDraw(int draw) {
+    public void addDraw(int draw) {
         this.draw = draw;
     }
 
-    public void setDraw() {
+    public void addDraw() {
         draw++;
     }
 
     @Override
     public void setResult(Result resultMatch) {
-        setPlay();
+        addPlay();
         switch (resultMatch) {
             case WIN -> {
-                setWin();
-                setScore(getScore() + 3);
+                addWin();
+                addScore(3);
             }
             case DRAW -> {
-                setDraw();
-                setScore(getScore() + 1);
+                addDraw();
+                addScore(1);
             }
-            case LOSE -> setLose();
+            case LOSE -> addLose();
         }
     }
 
@@ -50,12 +50,11 @@ public class FootballClub extends Club {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        FootballClub that = (FootballClub) o;
-        return draw == that.draw;
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        FootballClub that = (FootballClub) object;
+        return Objects.equals(getName(), that.getName());
     }
 
     @Override
