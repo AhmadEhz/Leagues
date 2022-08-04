@@ -2,7 +2,7 @@ package HW7;
 
 import HW7.entity.*;
 import HW7.entity.football.FootballClub;
-import HW7.entity.football.FootballMatch;
+import HW7.entity.volleyball.VolleyballClub;
 
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -12,11 +12,27 @@ public class Main {
     static Input input = new Input();
     static Utility utility = new Utility();
     static boolean exit = false;
-    Match match;
+
+    static ClubList clubList = new ClubList();
     static String league;
 
     public static void main(String[] args) {
         print.welcome();
+        /*
+        Club fb1 = new FootballClub("fb1");
+        Club fb2 = new FootballClub("fb2");
+        Club vb1 = new VolleyballClub("vb1");
+        Club vb2 = new VolleyballClub("vb2");
+        clubList.add(fb1);
+        clubList.add(fb2);
+        clubList.add(vb1);
+        clubList.add(vb2);
+        fb1.setMatch(fb2, 3, 4);
+        vb1.setMatch(vb2, 3, 1);
+        System.out.println(clubList.get(0));
+        System.out.println(clubList.get(1));
+        System.out.println(clubList.get(2));
+        System.out.println(clubList.get(3));*/
         mainMenu();
     }
 
@@ -36,8 +52,8 @@ public class Main {
             print.setLeagueMenu();
             switch (input.scanner()) {
                 case "1" -> league = String.valueOf(LeagueName.FOOTBALL);
-                case "2" -> league = String.valueOf(LeagueName.VOLLEYBALL);
                 case "0" -> exit = true;
+                //need for loop and delete switch case
                 default -> {
                     print.invalidEntry();
                 }
@@ -47,15 +63,14 @@ public class Main {
     }
 
     private static void setMatchMenu() {
-        Club firstClub = new FootballClub();
-        Club secondClub = new FootballClub();
+        Club club = new FootballClub();
+        Club opponentClub = new FootballClub();
         String result = "30-2";
-        FootballMatch match = new FootballMatch((FootballClub) firstClub, (FootballClub) secondClub);
-        if (match.checkMatch(utility.setResult(result)))
-            match.setMatch(utility.setResult(result));
-        print.added();
-        System.out.println(firstClub);
-        System.out.println(secondClub);
+        if (utility.addMatch(club, opponentClub, result))
+            print.added();
+        else print.invalidEntry();
+        System.out.println(club);
+        System.out.println(opponentClub);
     }
 
     static boolean isLegalDate(String s) {

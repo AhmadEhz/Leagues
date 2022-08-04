@@ -1,4 +1,6 @@
 package HW7.entity.volleyball;
 
-public class VolleyballLeague {
+import HW7.entity.League;
+
+public class VolleyballLeague extends League {
 }

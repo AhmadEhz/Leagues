@@ -1,5 +1,8 @@
 package HW7.entity.football;
 
-public class FootballLeague {
+import HW7.entity.Club;
+import HW7.entity.League;
+
+public class FootballLeague extends League {
 
 }
