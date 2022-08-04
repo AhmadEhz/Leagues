@@ -8,10 +8,14 @@ import java.util.Objects;
 
 public class FootballClub extends Club {
     private int draw;
-    public FootballClub (String name) {
+
+    public FootballClub(String name) {
         super(name, LeagueName.FOOTBALL);
     }
-    public FootballClub() {}
+
+    public FootballClub() {
+        super(LeagueName.FOOTBALL);
+    }
 
     public int getDraw() {
         return draw;
@@ -52,24 +56,28 @@ public class FootballClub extends Club {
     }
 
     @Override
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
-        FootballClub that = (FootballClub) object;
-        return Objects.equals(getName(), that.getName());
+    public boolean equals(Object club) {
+        if (this == club) return true;
+        if (club == null || getClass() != club.getClass()) return false;
+        return getName().equals(((FootballClub) club).getName()) && getLeague().equals(((FootballClub) club).getLeague());
     }
 
     @Override
-    public void setMatch(Club opponentClub, int point, int opponentPoint) {//Set the result match and pass it to setMatch.
-        if (point> opponentPoint)
+    public boolean setMatch(Club opponentClub, int point, int opponentPoint) {//Set the result match and pass it to setMatch.
+        if (!checkMatch(opponentClub, point,opponentPoint))
+            return false;
+        if (point > opponentPoint)
             setMatchToSetResult(opponentClub, point, opponentPoint, Result.WIN);
         else if (point < opponentPoint)
             setMatchToSetResult(opponentClub, point, opponentPoint, Result.LOSE);
         else setMatchToSetResult(opponentClub, point, opponentPoint, Result.DRAW);
+        return true;
     }
 
     @Override
     public boolean checkMatch(Club opponentClub, int point, int opponentPoint) {//In football, any point are accepted.
+        if (isNull())
+            return false;
         return true;
     }
 

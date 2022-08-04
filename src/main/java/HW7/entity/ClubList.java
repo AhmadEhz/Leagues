@@ -9,9 +9,16 @@ public class ClubList {
     public Club get(int index) {
         return clubs[index];
     }
+    public Club get(Club club) {
+        for (int i = 0; i < index; i++) {
+            if(club.equals(clubs[i]))
+                return clubs[i];
+        }
+        return null;
+    }
 
     public Club[] getLeague(LeagueName leagueName) {
-        Club[] league = new Club[index+1];
+        Club[] league = new Club[index];
         int indexOfLeague = 0;
         for (int i = 0; i < index; i++) {
         if (clubs[i].getLeague() == leagueName)

@@ -13,7 +13,9 @@ public abstract class Club {
         this.name = name;
         this.league = league;
     }
-    public Club () {}
+    public Club (LeagueName league) {
+        this.league = league;
+    }
 
     public String getName() {
         return name;
@@ -79,10 +81,14 @@ public abstract class Club {
     public void addLose() {
         lose++;
     }
+    public void setClub(Club club) {
+        name = club.getName();
+        league = club.getLeague();
+    }
 
     protected abstract void setResult(int point, int opponentPoint, Result resultMatch);//For add scores and wins and loses (and draws).
 
-    public abstract void setMatch(Club opponentClub, int clubPoint, int opponentClubPoint);//index 0 for club points, index 1 for opponent club points
+    public abstract boolean setMatch(Club opponentClub, int clubPoint, int opponentClubPoint);//index 0 for club points, index 1 for opponent club points
 
     public abstract boolean checkMatch(Club opponentClub, int point, int opponentPoint);
 
@@ -112,5 +118,8 @@ public abstract class Club {
     @Override
     public int hashCode() {
         return Objects.hash(name, score, play, win, lose, league);
+    }
+    public boolean isNull() {
+        return this == null;
     }
 }
