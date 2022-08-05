@@ -1,7 +1,12 @@
 package HW7;
 
+import HW7.entity.Club;
+import HW7.entity.LeagueName;
+
+import static HW7.Main.clubList;
+
 public class Print {
-    public void welcome () {
+    public void welcome() {
         System.out.println("Welcome!");
     }
 
@@ -35,5 +40,39 @@ public class Print {
 
     public void enterMatch() {
         System.out.println("Enter the match (format: FirstTeam 0-0 SecondTeam)");
+    }
+
+    public void leagueNames() {
+        String[] leagues = new Utility().getLeagueNames();
+        for (int i = 0; i < leagues.length; i++) {
+            System.out.println(i + 1 + "- " + leagues[i].toLowerCase());
+        }
+        System.out.println("0- Exit");
+    }
+
+    public void leagueTeams(LeagueName league) {
+        Club[] clubs = clubList.getLeague(league);
+        if (clubs == null)
+            noTeam();
+        else {
+            for (int i = 0; i < clubs.length && clubs[i] != null; i++)
+                System.out.println(clubs[i]);
+        }
+    }
+
+    private void noTeam() {
+        System.out.println("There is no team!");
+    }
+
+    public void clubNotExist() {
+        System.out.println("Club not exist!");
+    }
+
+    public void pointInvalid() {
+        System.out.println("Invalid points of entered");
+    }
+
+    public void clubExist() {
+        System.out.println("This club is exist!");
     }
 }

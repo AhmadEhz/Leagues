@@ -9,29 +9,43 @@ public class ClubList {
     public Club get(int index) {
         return clubs[index];
     }
+
     public Club get(Club club) {
         for (int i = 0; i < index; i++) {
-            if(club.equals(clubs[i]))
+            if (club.equals(clubs[i]))
                 return clubs[i];
         }
         return null;
     }
 
+
     public Club[] getLeague(LeagueName leagueName) {
         Club[] league = new Club[index];
         int indexOfLeague = 0;
         for (int i = 0; i < index; i++) {
-        if (clubs[i].getLeague() == leagueName)
-            league[indexOfLeague++] = clubs[i];
+            if (clubs[i].getLeague() == leagueName)
+                league[indexOfLeague++] = clubs[i];
         }
-        return league;
+        if(isEmpty()||league[0]==null)
+        return null;
+        else return league;
     }
 
-    public void add(Club club) {
+    public boolean add(Club club) {
         if (index == clubs.length)
             clubs = Arrays.copyOf(clubs, clubs.length + 100);
-        clubs[index] = club;
-        index++;
+        if (!checkClub(club)) {
+            clubs[index] = club;
+            index++;
+            return true;
+        }
+        else return false;
+    }
+
+    public void update(Club club) {
+        for (int i = 0; i < index; i++)
+            if (club.equals(clubs[i]))
+        clubs[i] = club;
     }
 
     public void remove(int index) {
@@ -54,7 +68,24 @@ public class ClubList {
         else return true;
     }
 
+    public boolean checkClub(Club club) {
+        for (int i = 0; i < index; i++) {
+            if (club.equals(this.clubs[i]))
+                return true;
+        }
+        return false;
+    }
+
     private int size() {
         return index;
+    }
+
+    public boolean setMatch(Club club, Club opponentClub, int clubPoints, int opponentClubPoints) {
+        if (club.setMatch(opponentClub, clubPoints, opponentClubPoints)) {
+            update(club);
+            update(opponentClub);
+            return true;
+        }
+        else return false;
     }
 }

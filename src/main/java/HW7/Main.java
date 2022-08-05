@@ -1,8 +1,6 @@
 package HW7;
 
 import HW7.entity.*;
-import HW7.entity.football.FootballClub;
-import HW7.entity.volleyball.VolleyballClub;
 
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -38,85 +36,91 @@ public class Main {
     }
 
     private static void mainMenu() {
+        LeagueName league;
         while (!exit) {
             print.mainMenu();
             switch (input.scanner()) {
-                case "1" -> {
-                    for (int i = 0; i < clubList.getLeague(LeagueName.FOOTBALL).length; i++) {
-                        System.out.println(clubList.getLeague(LeagueName.FOOTBALL)[i]);
-                    }
+                case "1" -> { // Show selected league teams
+                    league = setLeague();
+                    if (league == null)
+                        exit = true;
+                    showLeaguesMenu(league);
                 }
-                case "2" -> setLeague();
-                case "4" -> addClubMenu();
+                case "2" -> { // Add a match to selected league
+                    league = setLeague();
+                    if (league == null)
+                        exit = true;
+                    setMatchMenu(league);
+                }
+                case "3" -> {
+                }
+                case "4" -> { //Add a club to selected league
+                    league = setLeague();
+                    if (league == null)
+                        exit = true;
+                    createClubMenu(league);
+                }
                 case "0" -> exit = true;
+                default -> print.invalidEntry();
             }
         }
-        exit = false;
     }
 
-    private static void setLeague() {
-        while (!exit) {
-            print.setLeagueMenu();
-            switch (input.scanner()) {
-                case "1" -> setMatchMenu("FOOTBALL");
-                case "2" -> setMatchMenu("VOLLEYBALL");
-                case "0" -> exit = true;
-                //need for loop and delete switch case
-                default -> {
-                    print.invalidEntry();
-                }
+    private static void showLeaguesMenu(LeagueName league) {
+        print.leagueTeams(league);
+    }
+
+    private static LeagueName setLeague() {
+        String inputId = null;
+        int leagueId = 0;
+        while (true) {
+            print.leagueNames();
+            inputId = input.scanner();
+            if (!input.hasInt(inputId))
+                print.invalidEntry();
+            if (inputId.equals("0"))
+                return null;
+            else leagueId = Integer.parseInt(inputId) - 1;
+            if (leagueId >= utility.getLeagueNumber())
+                print.invalidEntry();
+            else {
+                return utility.getLeague(leagueId);
             }
         }
-        exit = false;
     }
 
-    private static void setMatchMenu(String league) {
+    private static void setMatchMenu(LeagueName league) {
         print.enterMatch();
-        if (addMatch(input.scanner(), league))
-            print.added();
-        else print.invalidEntry();
-        /* Club club = new FootballClub();
-        Club opponentClub = new FootballClub();
-        String result = "30-2";
-        if (utility.addMatch(club, opponentClub, result))
-            print.added();
-        else print.invalidEntry();*/
+        String[] inputMatch = input.scanner().split("( )|(-)");
+        if (input.checkMatch(inputMatch)) {
+            Club club = clubList.get(SetClub.createClub(inputMatch[0], league));
+            Club opponentClub = clubList.get(SetClub.createClub(inputMatch[3], league));
+            if (club != null && opponentClub != null)//checks both club exist in clubList
+                if (clubList.setMatch(club, opponentClub, Integer.parseInt(inputMatch[1]), Integer.parseInt(inputMatch[2])))
+                    print.added();
+                else print.pointInvalid();
+            else print.clubNotExist();
+        } else print.invalidEntry();
     }
 
-    private static boolean addMatch(String match, String league) {
+    /*private static boolean addMatch(String [] match, int leagueId) {
         LeagueName leagueName = LeagueName.valueOf(league);
-        String[] matchArray = match.split(" ");
 
-        Club club = clubList.get(SetClub.setClub(matchArray[0], leagueName));
-        Club opponentClub = clubList.get(SetClub.setClub(matchArray[4], leagueName));
+        Club club = clubList.get(SetClub.createClub(matchArray[0], leagueName));
+        Club opponentClub = clubList.get(SetClub.createClub(matchArray[4], leagueName));
         if (club != null && opponentClub != null)
             if (club.setMatch(opponentClub, Integer.parseInt(matchArray[1]), Integer.parseInt(matchArray[3])))
                 return true;
         return false;
-    }
+    }*/
 
-    private static void addClubMenu() {
-        while (!exit) {
-            print.setLeagueMenu();
-            String input1 = input.scanner();
-            if (input1.equals("1")) {
-                createClubMenu(SetClub.setClub(LeagueName.FOOTBALL));
-                print.added();
-            } else if (input1.equals("2")) {
-                createClubMenu(SetClub.setClub(LeagueName.VOLLEYBALL));
-                print.added();
-            } else if (input1.equals("0"))
-                exit = true;
-        }
-        exit = false;
-    }
-
-    private static void createClubMenu(Club club) {//Club is imported from ClubList
-        Club newClub = club;
+    private static void createClubMenu(LeagueName league) {//Club is imported from ClubList
         print.enterNameClub();
+        Club club = SetClub.setClub(league);
         club.setName(input.scanner());
-        newClub.setClub(club);
-        clubList.add(newClub);
+        if (clubList.add(club))
+            print.added();
+        else print.clubExist();
     }
 
     static boolean isLegalDate(String s) {
@@ -124,4 +128,5 @@ public class Main {
         sdf.setLenient(false);
         return sdf.parse(s, new ParsePosition(0)) != null;
     }
+
 }

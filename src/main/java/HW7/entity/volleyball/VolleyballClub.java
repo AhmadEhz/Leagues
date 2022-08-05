@@ -8,12 +8,14 @@ import HW7.entity.football.FootballClub;
 import java.util.Objects;
 
 public class VolleyballClub extends Club {
-    public VolleyballClub (String name) {
+    public VolleyballClub(String name) {
         super(name, LeagueName.VOLLEYBALL);
     }
+
     public VolleyballClub() {
         super(LeagueName.VOLLEYBALL);
     }
+
     @Override
     protected void setResult(int point, int opponentPoint, Result resultMatch) {
         addPlay();
@@ -34,7 +36,7 @@ public class VolleyballClub extends Club {
 
     @Override
     public boolean setMatch(Club opponentClub, int point, int opponentPoint) {
-        if (!checkMatch(opponentClub,point,opponentPoint))
+        if (!checkResult(opponentClub, point, opponentPoint))
             return false;
         if (point > opponentPoint)
             setMatchToSetResult(opponentClub, point, opponentPoint, Result.WIN);
@@ -43,11 +45,11 @@ public class VolleyballClub extends Club {
     }
 
     @Override
-    public boolean checkMatch(Club opponentClub, int point, int opponentPoint) {
+    public boolean checkResult(Club opponentClub, int point, int opponentPoint) {
         if (isNull())
             return false;
         if (opponentClub instanceof VolleyballClub)
-            if ((point == 3 && opponentPoint < 3) ||(opponentPoint == 3 & point < 3))
+            if ((point == 3 && opponentPoint < 3) || (opponentPoint == 3 & point < 3))
                 return true;
         return false;
     }
@@ -65,7 +67,7 @@ public class VolleyballClub extends Club {
     public boolean equals(Object club) {
         if (this == club) return true;
         if (club == null || getClass() != club.getClass()) return false;
-        return getName() == ((VolleyballClub) club).getName() && getLeague() == ((VolleyballClub) club).getLeague() ;
+        return getName().equals(((VolleyballClub) club).getName()) && getLeague().equals(((VolleyballClub) club).getLeague());
     }
 
     public int hashCode() {

@@ -47,12 +47,12 @@ public class FootballClub extends Club {
 
     @Override
     public String toString() {
-        return "Name:" + getName() + "\n" +
-                "Plays: " + getPlay() + "\n" +
-                "Wins: " + getWin() + "\n" +
-                "Loses: " + getLose() + "\n" +
-                "Draws: " + getDraw() + "\n" +
-                "Score: " + getScore();
+        return "Name: " + getName() + "|" +
+                " P: " + getPlay() + "|" +
+                " W: " + getWin() + "|" +
+                " L: " + getLose() + "|" +
+                " D: " + getDraw() + "|" +
+                "S: " + getScore();
     }
 
     @Override
@@ -64,7 +64,7 @@ public class FootballClub extends Club {
 
     @Override
     public boolean setMatch(Club opponentClub, int point, int opponentPoint) {//Set the result match and pass it to setMatch.
-        if (!checkMatch(opponentClub, point,opponentPoint))
+        if (!checkResult(opponentClub, point, opponentPoint))
             return false;
         if (point > opponentPoint)
             setMatchToSetResult(opponentClub, point, opponentPoint, Result.WIN);
@@ -75,7 +75,7 @@ public class FootballClub extends Club {
     }
 
     @Override
-    public boolean checkMatch(Club opponentClub, int point, int opponentPoint) {//In football, any point are accepted.
+    public boolean checkResult(Club opponentClub, int point, int opponentPoint) {//In football, any point are accepted.
         if (isNull())
             return false;
         return true;

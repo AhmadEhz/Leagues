@@ -3,8 +3,6 @@ package HW7.entity;
 import HW7.entity.football.FootballClub;
 import HW7.entity.volleyball.VolleyballClub;
 
-import java.sql.Array;
-
 
 public class SetClub {
     private static Club initialClub(LeagueName league) {//If you want to add a league, add the same as FootballClub and VolleyballClub.
@@ -29,7 +27,7 @@ public class SetClub {
     public static Club setClub(LeagueName league) {
         return initialClub(league);
     }
-    public static Club setClub(String clubName, LeagueName league) {
+    public static Club createClub(String clubName, LeagueName league) {
         Club club = initialClub(league);
         club.setName(clubName);
       return club;
