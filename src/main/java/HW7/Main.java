@@ -6,8 +6,6 @@ import HW7.entity.volleyball.VolleyballClub;
 
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
-import java.util.EnumMap;
-import java.util.Objects;
 
 public class Main {
     static Print print = new Print();
@@ -77,7 +75,7 @@ public class Main {
         if (addMatch(input.scanner(), league))
             print.added();
         else print.invalidEntry();
-        /*Club club = new FootballClub();
+        /* Club club = new FootballClub();
         Club opponentClub = new FootballClub();
         String result = "30-2";
         if (utility.addMatch(club, opponentClub, result))
@@ -113,7 +111,7 @@ public class Main {
         exit = false;
     }
 
-    private static void createClubMenu(Club club) {
+    private static void createClubMenu(Club club) {//Club is imported from ClubList
         Club newClub = club;
         print.enterNameClub();
         club.setName(input.scanner());

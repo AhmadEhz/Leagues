@@ -1,6 +1,7 @@
 package HW7;
 
 import HW7.entity.Club;
+import HW7.entity.LeagueName;
 
 public class Utility {
     boolean addMatch(Club club, Club opponentClub, String result) {
@@ -19,5 +20,14 @@ public class Utility {
         setResult[1] = Integer.parseInt(newResult[1]);
         return setResult;
     }
+        String [] getLeagueName() {
+        String [] leagues = new String[LeagueName.values().length];
+        int index = 0;
+            for (LeagueName l:LeagueName.values()) {
+                leagues[index++] = String.valueOf(l);
+
+            }
+            return leagues;
+        }
 
 }
