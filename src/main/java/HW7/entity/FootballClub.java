@@ -1,8 +1,4 @@
-package HW7.entity.football;
-
-import HW7.entity.Club;
-import HW7.entity.LeagueName;
-import HW7.entity.Result;
+package HW7.entity;
 
 import java.util.Objects;
 
@@ -47,11 +43,11 @@ public class FootballClub extends Club {
 
     @Override
     public String toString() {
-        return "Name: " + getName() + "|" +
-                " P: " + getPlay() + "|" +
-                " W: " + getWin() + "|" +
-                " L: " + getLose() + "|" +
-                " D: " + getDraw() + "|" +
+        return  getName() + " --> " +
+                " P: " + getPlay() + " | " +
+                " W: " + getWin() + " | " +
+                " L: " + getLose() + " | " +
+                " D: " + getDraw() + " | " +
                 "S: " + getScore();
     }
 
@@ -59,12 +55,12 @@ public class FootballClub extends Club {
     public boolean equals(Object club) {
         if (this == club) return true;
         if (club == null || getClass() != club.getClass()) return false;
-        return getName().equals(((FootballClub) club).getName()) && getLeague().equals(((FootballClub) club).getLeague());
+        return getName().equalsIgnoreCase(((FootballClub) club).getName()) && getLeague().equals(((FootballClub) club).getLeague());
     }
 
     @Override
     public boolean setMatch(Club opponentClub, int point, int opponentPoint) {//Set the result match and pass it to setMatch.
-        if (!checkResult(opponentClub, point, opponentPoint))
+        if (!checkMatchResult(opponentClub, point, opponentPoint))
             return false;
         if (point > opponentPoint)
             setMatchToSetResult(opponentClub, point, opponentPoint, Result.WIN);
@@ -75,10 +71,10 @@ public class FootballClub extends Club {
     }
 
     @Override
-    public boolean checkResult(Club opponentClub, int point, int opponentPoint) {//In football, any point are accepted.
+    public boolean checkMatchResult(Club opponentClub, int point, int opponentPoint) {//In football, any point are accepted.
         if (isNull())
             return false;
-        return true;
+        return opponentClub instanceof FootballClub;
     }
 
     @Override

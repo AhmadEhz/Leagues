@@ -1,7 +1,6 @@
-package HW7.entity;
+package HW7.util;
 
-import HW7.entity.football.FootballClub;
-import HW7.entity.volleyball.VolleyballClub;
+import HW7.entity.*;
 
 
 public class SetClub {
@@ -11,6 +10,10 @@ public class SetClub {
             return club;
         } else if (league == LeagueName.VOLLEYBALL) {
             VolleyballClub club = new VolleyballClub();
+            return club;
+        }
+        else if(league == LeagueName.BASKETBALL) {
+            BasketballClub club = new BasketballClub();
             return club;
         }
         else return null;

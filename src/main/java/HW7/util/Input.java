@@ -1,9 +1,8 @@
-package HW7;
+package HW7.util;
 
 import java.util.Scanner;
 
-import static HW7.Main.input;
-import static HW7.Main.utility;
+import static HW7.util.Menu.input;
 
 public class Input {
     static Scanner scanner = new Scanner(System.in);
@@ -33,11 +32,18 @@ public class Input {
         else return true;
 
     }
+
     public boolean isDigit(String input) {
         for (int i = 0; i < input.length(); i++)
             if (!Character.isDigit(input.charAt(i)))
                 return false;
 
+        return true;
+    }
+
+    public boolean checkTeamName(String name) {
+        if (name.length() < 4)
+            return false;
         return true;
     }
 }

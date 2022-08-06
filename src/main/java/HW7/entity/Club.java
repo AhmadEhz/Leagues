@@ -86,7 +86,7 @@ public abstract class Club {
 
     public abstract boolean setMatch(Club opponentClub, int clubPoint, int opponentClubPoint);//index 0 for club points, index 1 for opponent club points
 
-    public abstract boolean checkResult(Club opponentClub, int point, int opponentPoint);
+    public abstract boolean checkMatchResult(Club opponentClub, int point, int opponentPoint);
 
     protected void setMatchToSetResult(Club opponentClub, int point, int opponentPoint, Result resultMatch) {
         switch (resultMatch) {

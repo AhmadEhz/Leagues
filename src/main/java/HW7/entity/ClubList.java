@@ -6,10 +6,6 @@ public class ClubList {
     private Club[] clubs = new Club[100];
     private int index = 0;
 
-    public Club get(int index) {
-        return clubs[index];
-    }
-
     public Club get(Club club) {
         for (int i = 0; i < index; i++) {
             if (club.equals(clubs[i]))
@@ -20,15 +16,15 @@ public class ClubList {
 
 
     public Club[] getLeague(LeagueName leagueName) {
-        Club[] league = new Club[index];
+        Club[] leagueTeams = new Club[index];
         int indexOfLeague = 0;
         for (int i = 0; i < index; i++) {
             if (clubs[i].getLeague() == leagueName)
-                league[indexOfLeague++] = clubs[i];
+                leagueTeams[indexOfLeague++] = clubs[i];
         }
-        if(isEmpty()||league[0]==null)
-        return null;
-        else return league;
+        if (isEmpty() || leagueTeams[0] == null)
+            return null;
+        else return sortClub(leagueTeams);
     }
 
     public boolean add(Club club) {
@@ -38,34 +34,37 @@ public class ClubList {
             clubs[index] = club;
             index++;
             return true;
-        }
-        else return false;
+        } else return false;
     }
 
     public void update(Club club) {
         for (int i = 0; i < index; i++)
             if (club.equals(clubs[i]))
-        clubs[i] = club;
+                clubs[i] = club;
     }
 
-    public void remove(int index) {
-        if (index >= size()) {
-            System.out.println("index not exist!");
-            return;
+    public boolean remove(Club club) {
+        int indexOfClub = getClubIndex(club);
+        if (indexOfClub == -1)//If indexOfClub equals -1 , it means no club found.
+            return false;
+        else {
+            for (int i = indexOfClub; i < index; i++)
+                clubs[i] = clubs[i + 1];
+            clubs[index--] = null;
+            return true;
         }
-        for (int i = index; i < this.index; i++)
-            clubs[i] = clubs[i + 1];
-        this.index--;
+    }
+
+    private int getClubIndex(Club club) {
+        for (int i = 0; i < index; i++) {
+            if (club.equals(club))
+                return i;
+        }
+        return -1;
     }
 
     public boolean isEmpty() {
         return index == 0;
-    }
-
-    public boolean checkClub(int index) {
-        if (index > this.index)
-            return false;
-        else return true;
     }
 
     public boolean checkClub(Club club) {
@@ -80,12 +79,29 @@ public class ClubList {
         return index;
     }
 
+    private Club[] sortClub(Club[] leagueTeams) {//Sort clubs with selection sort (score, descending)
+        int size = 0;
+        for (Club c : leagueTeams)
+            if (c!=null)
+                size++;
+        for (int i = 0; i < size - 1; i++) {
+            int min_idx = i;
+            for (int j = i + 1; j < size; j++) {
+                if (leagueTeams[j].getScore() > leagueTeams[min_idx].getScore())
+                    min_idx = j;
+            }
+            Club temp = leagueTeams[i];
+            leagueTeams[i] = leagueTeams[min_idx];
+            leagueTeams[min_idx] = temp;
+        }
+        return leagueTeams;
+    }
+
     public boolean setMatch(Club club, Club opponentClub, int clubPoints, int opponentClubPoints) {
         if (club.setMatch(opponentClub, clubPoints, opponentClubPoints)) {
             update(club);
             update(opponentClub);
             return true;
-        }
-        else return false;
+        } else return false;
     }
 }

@@ -1,9 +1,4 @@
-package HW7.entity.volleyball;
-
-import HW7.entity.Club;
-import HW7.entity.LeagueName;
-import HW7.entity.Result;
-import HW7.entity.football.FootballClub;
+package HW7.entity;
 
 import java.util.Objects;
 
@@ -36,7 +31,7 @@ public class VolleyballClub extends Club {
 
     @Override
     public boolean setMatch(Club opponentClub, int point, int opponentPoint) {
-        if (!checkResult(opponentClub, point, opponentPoint))
+        if (!checkMatchResult(opponentClub, point, opponentPoint))
             return false;
         if (point > opponentPoint)
             setMatchToSetResult(opponentClub, point, opponentPoint, Result.WIN);
@@ -45,21 +40,21 @@ public class VolleyballClub extends Club {
     }
 
     @Override
-    public boolean checkResult(Club opponentClub, int point, int opponentPoint) {
+    public boolean checkMatchResult(Club opponentClub, int clubPoints, int opponentClubPoints) {
         if (isNull())
             return false;
         if (opponentClub instanceof VolleyballClub)
-            if ((point == 3 && opponentPoint < 3) || (opponentPoint == 3 & point < 3))
+            if ((clubPoints == 3 && opponentClubPoints < 3) || (opponentClubPoints == 3 & clubPoints < 3))
                 return true;
         return false;
     }
 
     @Override
     public String toString() {
-        return "Name:" + getName() + "\n" +
-                "Plays: " + getPlay() + "\n" +
-                "Wins: " + getWin() + "\n" +
-                "Loses: " + getLose() + "\n" +
+        return getName() + " --> " +
+                "Plays: " + getPlay() + " | " +
+                "Wins: " + getWin() + " | " +
+                "Loses: " + getLose() + " | " +
                 "Score: " + getScore();
     }
 
@@ -67,7 +62,7 @@ public class VolleyballClub extends Club {
     public boolean equals(Object club) {
         if (this == club) return true;
         if (club == null || getClass() != club.getClass()) return false;
-        return getName().equals(((VolleyballClub) club).getName()) && getLeague().equals(((VolleyballClub) club).getLeague());
+        return getName().equalsIgnoreCase(((VolleyballClub) club).getName()) && getLeague().equals(((VolleyballClub) club).getLeague());
     }
 
     public int hashCode() {
