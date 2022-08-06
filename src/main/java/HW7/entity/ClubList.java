@@ -57,7 +57,7 @@ public class ClubList {
 
     private int getClubIndex(Club club) {
         for (int i = 0; i < index; i++) {
-            if (club.equals(club))
+            if (clubs[i].equals(club))
                 return i;
         }
         return -1;
@@ -73,10 +73,6 @@ public class ClubList {
                 return true;
         }
         return false;
-    }
-
-    private int size() {
-        return index;
     }
 
     private Club[] sortClub(Club[] leagueTeams) {//Sort clubs with selection sort (score, descending)

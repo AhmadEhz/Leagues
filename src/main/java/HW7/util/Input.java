@@ -19,17 +19,13 @@ public class Input {
                 return false;
             }
         }
-        if (Integer.parseInt(input) < 0)
-            return false;
-        return true;
+        return Integer.parseInt(input) >= 0;
     }
 
     public boolean checkMatch(String[] inputMatch) {
         if (inputMatch.length != 4)
             return false;
-        if (!input.isDigit(inputMatch[1]) || !input.isDigit(inputMatch[2]))
-            return false;
-        else return true;
+        return input.isDigit(inputMatch[1]) && input.isDigit(inputMatch[2]);
 
     }
 
@@ -42,8 +38,6 @@ public class Input {
     }
 
     public boolean checkTeamName(String name) {
-        if (name.length() < 4)
-            return false;
-        return true;
+        return name.length() >= 4;
     }
 }

@@ -8,11 +8,7 @@ public abstract class Club {
     private int play;
     private int win;
     private int lose;
-    private LeagueName league;
-    public Club (String name,LeagueName league) {
-        this.name = name;
-        this.league = league;
-    }
+    private final LeagueName league;
     public Club (LeagueName league) {
         this.league = league;
     }
@@ -29,10 +25,6 @@ public abstract class Club {
         return score;
     }
 
-    public void setScore(int score) {
-        this.score = score;
-    }
-
     public void addScore(int score) {
         this.score += score;
     }
@@ -42,16 +34,8 @@ public abstract class Club {
         return league;
     }
 
-    public void setType(LeagueName league) {
-        this.league = league;
-    }
-
     public int getPlay() {
         return play;
-    }
-
-    public void setPlay(int play) {
-        this.play = play;
     }
 
     public void addPlay() {
@@ -62,20 +46,12 @@ public abstract class Club {
         return win;
     }
 
-    public void setWin(int win) {
-        this.win = win;
-    }
-
     public void addWin() {
         win++;
     }
 
     public int getLose() {
         return lose;
-    }
-
-    public void setLose(int lose) {
-        this.lose = lose;
     }
 
     public void addLose() {
@@ -114,8 +90,5 @@ public abstract class Club {
     @Override
     public int hashCode() {
         return Objects.hash(name, score, play, win, lose, league);
-    }
-    public boolean isNull() {
-        return this == null;
     }
 }

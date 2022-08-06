@@ -1,9 +1,7 @@
 package HW7.util;
 
-import HW7.entity.Club;
 import HW7.entity.LeagueName;
 
-import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class Utility {

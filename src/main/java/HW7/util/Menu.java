@@ -72,7 +72,7 @@ public class Menu {
             if (inputName.equals("0"))
                 exit = true;
             else {
-                Club club = clubList.get(SetClub.createClub(inputName, league));
+                Club club = clubList.get(SetClub.setClub(inputName, league));
                 if (club == null)
                     print.clubNotExist();
                 else print.club(club);
@@ -94,8 +94,8 @@ public class Menu {
             if (inputMatch.length == 1 && inputMatch[0].equals("0"))
                 return;
             if (input.checkMatch(inputMatch)) {
-                Club club = clubList.get(SetClub.createClub(inputMatch[0], league));
-                Club opponentClub = clubList.get(SetClub.createClub(inputMatch[3], league));
+                Club club = clubList.get(SetClub.setClub(inputMatch[0], league));
+                Club opponentClub = clubList.get(SetClub.setClub(inputMatch[3], league));
                 if (club != null && opponentClub != null)//checks both club exist in clubList
                     if (clubList.setMatch(club, opponentClub, Integer.parseInt(inputMatch[1]), Integer.parseInt(inputMatch[2]))) {
                         print.added();

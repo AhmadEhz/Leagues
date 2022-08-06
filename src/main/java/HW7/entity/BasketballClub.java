@@ -3,9 +3,6 @@ package HW7.entity;
 import java.util.Objects;
 
 public class BasketballClub extends Club {
-    public BasketballClub(String name) {
-        super(name, LeagueName.BASKETBALL);
-    }
 
     public BasketballClub() {
         super(LeagueName.BASKETBALL);
@@ -25,7 +22,7 @@ public class BasketballClub extends Club {
 
     @Override
     public boolean setMatch(Club opponentClub, int clubPoints, int opponentClubPoints) {
-        if (!checkMatchResult(opponentClub, clubPoints, opponentClubPoints))
+        if (checkMatchResult(opponentClub, clubPoints, opponentClubPoints))
             return false;
         if (clubPoints > opponentClubPoints)
             setMatchToSetResult(opponentClub, clubPoints, opponentClubPoints, Result.WIN);
@@ -36,9 +33,7 @@ public class BasketballClub extends Club {
 
     @Override
     public boolean checkMatchResult(Club opponentClub, int clubPoints, int opponentClubPoints) {
-        if (isNull())
-            return false;
-        return clubPoints!=opponentClubPoints && opponentClub instanceof BasketballClub;
+        return clubPoints == opponentClubPoints || !(opponentClub instanceof BasketballClub);
     }
 
     @Override

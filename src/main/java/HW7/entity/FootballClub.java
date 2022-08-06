@@ -5,20 +5,12 @@ import java.util.Objects;
 public class FootballClub extends Club {
     private int draw;
 
-    public FootballClub(String name) {
-        super(name, LeagueName.FOOTBALL);
-    }
-
     public FootballClub() {
         super(LeagueName.FOOTBALL);
     }
 
     public int getDraw() {
         return draw;
-    }
-
-    public void addDraw(int draw) {
-        this.draw = draw;
     }
 
     public void addDraw() {
@@ -60,7 +52,7 @@ public class FootballClub extends Club {
 
     @Override
     public boolean setMatch(Club opponentClub, int point, int opponentPoint) {//Set the result match and pass it to setMatch.
-        if (!checkMatchResult(opponentClub, point, opponentPoint))
+        if (checkMatchResult(opponentClub, point, opponentPoint))
             return false;
         if (point > opponentPoint)
             setMatchToSetResult(opponentClub, point, opponentPoint, Result.WIN);
@@ -72,9 +64,7 @@ public class FootballClub extends Club {
 
     @Override
     public boolean checkMatchResult(Club opponentClub, int point, int opponentPoint) {//In football, any point are accepted.
-        if (isNull())
-            return false;
-        return opponentClub instanceof FootballClub;
+        return !(opponentClub instanceof FootballClub);
     }
 
     @Override
